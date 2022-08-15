@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
     const [text, onChangeText] = useState();
     const [number, onChangeNumber] = useState(null);
     return (
@@ -33,11 +33,11 @@ const LoginScreen = () => {
                         </View>
                     </View>
                     <View style={styles.contentSection}>
-                        <View style={styles.button}>
+                        <Pressable onPress={() => navigation.navigate('signUp')} style={styles.button}>
                             <Text style={styles.buttonText}>
                                 Login
                             </Text>
-                        </View>
+                        </Pressable>
                         <Text>Sign Up</Text>
                     </View>
                 </View>

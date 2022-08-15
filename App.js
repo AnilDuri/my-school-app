@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 
 import LoginScreen from './screens/Login';
+import SignUpScreen from './screens/SignUp';
 
 export default function App() {
 
@@ -12,6 +13,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='login'>
         <Stack.Screen name='login' component={LoginScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name='signUp' component={SignUpScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   </>
