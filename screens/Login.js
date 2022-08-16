@@ -33,12 +33,14 @@ const LoginScreen = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={styles.contentSection}>
-                        <Pressable onPress={() => navigation.navigate('signUp')} style={styles.button}>
+                        <Pressable style={styles.button}>
                             <Text style={styles.buttonText}>
                                 Login
                             </Text>
                         </Pressable>
-                        <Text>Sign Up</Text>
+                        <Pressable onPress={() => navigation.navigate('signUp')} >
+                            <Text>Sign Up</Text>
+                        </Pressable>
                     </View>
                 </View>
                 <View style={styles.spaceDivider}></View>
