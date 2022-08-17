@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux';
 
 import { addStudent } from '../store/slices/students';
 
-const AddStudentModal = ({modalVisible, setModalVisible}) => {
+const AddStudentModal = ({ modalVisible, setModalVisible }) => {
     const dispatch = useDispatch();
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
-    const [yearGroup, setYearGroup] = useState();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [yearGroup, setYearGroup] = useState('');
 
     const addNewStudent = () => {
         dispatch(addStudent({ firstName, lastName, yearGroup }));
@@ -50,15 +50,27 @@ const AddStudentModal = ({modalVisible, setModalVisible}) => {
                             value={yearGroup}
                         />
                     </View>
-                    <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => addNewStudent()}
-                    >
-                        <Text style={styles.textStyle}>Add Student</Text>
-                    </Pressable>
+                    <View style={styles.actionContainer}>
+                        <View style={styles.buttonContainer}>
+                            <Pressable
+                                style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <Pressable
+                                style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+                                onPress={() => addNewStudent()}
+                            >
+                                <Text style={styles.textStyle}>Add Student</Text>
+                            </Pressable>
+                        </View>
+                    </View>
                 </View>
             </View>
-        </Modal>
+        </Modal >
     )
 }
 
@@ -66,7 +78,7 @@ export default AddStudentModal
 
 const styles = StyleSheet.create({
     centeredView: {
-        backgroundColor: 'rgba(220,220,200,0.8)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
@@ -76,8 +88,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         backgroundColor: "lightgrey",
         borderRadius: 20,
-        paddingVertical: 20,
-        paddingHorizontal: 10,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -86,15 +96,17 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 5,
+        overflow: 'hidden'
+    },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
+        padding: 15,
+        alignSelf: 'stretch'
     },
     textStyle: {
         color: "white",
@@ -102,7 +114,9 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     registerContainer: {
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
+        marginHorizontal: 20,
+        marginVertical: 20,
     },
     input: {
         alignSelf: 'stretch',
@@ -113,4 +127,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 16
     },
+    actionContainer: {
+        flexDirection: 'row',
+        alignSelf: 'stretch',
+    },
+    pressed: {
+        // opacity: 0.7
+        backgroundColor: '#a1a1a1'
+    }
 })
