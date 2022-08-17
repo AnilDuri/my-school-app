@@ -6,14 +6,13 @@ const SignUpScreen = ({ navigation }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: 'Sandford School', value: 'apple' },
-    { label: 'Lycee', value: 'banana' },
-    { label: 'Sandford School', value: 'apples' },
-    { label: 'Lycee', value: 'bananas' },
-    { label: 'Sandford School', value: 'applez' },
-    { label: 'Lycee', value: 'bananaz' },
-    { label: 'Sandford School', value: 'applex' },
-    { label: 'Lycee', value: 'bananax' },
+    { label: 'Sandford School', value: 'sandford_school' },
+    { label: 'Lycee', value: 'lycee' },
+    { label: 'Greek School', value: 'greek_school' },
+    { label: 'ICS', value: 'ics' },
+    { label: 'Bingham Academy', value: 'bingham_academy' },
+    { label: 'Italian School', value: 'italian_school' },
+    { label: 'German School', value: 'german_school' },
   ]);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState(null);
