@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Button, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
 const RegisterChildScreen = ({ navigation }) => {
 
@@ -10,7 +10,12 @@ const RegisterChildScreen = ({ navigation }) => {
             headerShadowVisible: false,
             headerStyle: {
                 backgroundColor: '#b4e369'
-            }
+            },
+            headerRight: () => (
+                <Pressable onPress={() => alert('This is a button!')}>
+                    <Text style={styles.headerButton}>+</Text>
+                </Pressable>
+            ),
         })
     }, [navigation]);
     return (
@@ -30,6 +35,10 @@ const RegisterChildScreen = ({ navigation }) => {
 export default RegisterChildScreen
 
 const styles = StyleSheet.create({
+    headerButton: {
+        fontSize: 30,
+        color: 'white'
+    },  
     container: {
         flex: 1,
     },
