@@ -1,7 +1,11 @@
-import React, { useLayoutEffect } from 'react'
-import { Button, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
+import { Modal, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 
 const RegisterChildScreen = ({ navigation }) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [yearGroup, setYearGroup] = useState();
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -12,7 +16,7 @@ const RegisterChildScreen = ({ navigation }) => {
                 backgroundColor: '#b4e369'
             },
             headerRight: () => (
-                <Pressable onPress={() => alert('This is a button!')}>
+                <Pressable onPress={() => setModalVisible(true)}>
                     <Text style={styles.headerButton}>+</Text>
                 </Pressable>
             ),
@@ -24,10 +28,60 @@ const RegisterChildScreen = ({ navigation }) => {
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Add children that attend *school name*</Text>
                 </View>
-                <View style={styles.inputContainer}>
-                    <Text>Hello</Text>
+                <View style={styles.registeredStudentContainer}>
+                    <View style={styles.listContainer}>
+                        <Text style={{ textAlign: 'center' }}>You haven't added any students yet, you can do so in the top right hand corner</Text>
+                    </View>
+                </View>
+                <View style={styles.actionContainer}>
+                    <Pressable onPress={() => navigation.navigate('registerChild')} style={styles.button}>
+                        <Text style={styles.buttonText}>
+                            Submit
+                        </Text>
+                    </Pressable>
                 </View>
             </View>
+            <Modal
+                animationType="slide"
+                presentationStyle='overFullScreen'
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={styles.registerContainer}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="First Name"
+                                onChangeText={setFirstName}
+                                value={firstName}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Last Name"
+                                onChangeText={setLastName}
+                                value={lastName}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Year Group"
+                                onChangeText={setYearGroup}
+                                value={yearGroup}
+                            />
+                        </View>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Add Student</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     )
 }
@@ -38,7 +92,7 @@ const styles = StyleSheet.create({
     headerButton: {
         fontSize: 30,
         color: 'white'
-    },  
+    },
     container: {
         flex: 1,
     },
@@ -57,10 +111,96 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center'
     },
-    inputContainer: {
+    registeredStudentContainer: {
         flex: 3,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        marginHorizontal: 8
+        marginHorizontal: 16
+    },
+    actionContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    centeredView: {
+        backgroundColor: 'rgba(220,220,200,0.8)',
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalView: {
+        alignSelf: 'stretch',
+        marginHorizontal: 30,
+        backgroundColor: "lightgrey",
+        borderRadius: 20,
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    registerContainer: {
+        alignSelf: 'stretch'
+    },
+    input: {
+        alignSelf: 'stretch',
+        marginVertical: 8,
+        paddingHorizontal: 8,
+        paddingVertical: 16,
+        fontSize: 16,
+        backgroundColor: 'white',
+        borderRadius: 16
+    },
+    listContainer: {
+        flex: 1,
+        alignSelf: 'stretch',
+        backgroundColor: 'white',
+        borderRadius: 20,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 30
+    },
+    button: {
+        borderRadius: 30,
+        overflow: 'hidden',
+        paddingHorizontal: 32,
+        paddingVertical: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 8,
+        backgroundColor: 'blue'
+    },
+    buttonText: {
+        borderRadius: 30,
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold'
     },
 })
