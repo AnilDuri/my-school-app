@@ -15,8 +15,9 @@ const SignUpScreen = ({ navigation }) => {
     { label: 'Sandford School', value: 'applex' },
     { label: 'Lycee', value: 'bananax' },
   ]);
-  const [text, onChangeText] = useState();
-  const [number, onChangeNumber] = useState(null);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -38,22 +39,26 @@ const SignUpScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             placeholder="Email"
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={setEmail}
+            value={email}
+            autoCapitalize="none"
+
           />
           <TextInput
             style={styles.input}
-            onChangeText={onChangeNumber}
-            value={number}
+            onChangeText={setPassword}
+            value={password}
             placeholder="Password"
             keyboardType="password"
+            secureTextEntry={true}
           />
           <TextInput
             style={styles.input}
-            onChangeText={onChangeNumber}
-            value={number}
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
             placeholder="Confirm Password"
             keyboardType="password"
+            secureTextEntry={true}
           />
           <DropDownPicker
             placeholder="Select a School"
@@ -66,7 +71,7 @@ const SignUpScreen = ({ navigation }) => {
             disableBorderRadius={true}
             listMode="SCROLLVIEW"
             style={styles.picker}
-            containerStyle={{borderWidth: 'red'}}
+            containerStyle={{ borderWidth: 'red' }}
             placeholderStyle={styles.pickerPlaceholder}
           />
         </View>
