@@ -1,7 +1,12 @@
 import React, { useLayoutEffect, useState } from 'react'
 import { Modal, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
+
+import { addStudent } from '../store/slices/students';
 
 const RegisterChildScreen = ({ navigation }) => {
+    const students = useSelector((state) => state.students.students);
+    const dispatch = useDispatch();
     const [modalVisible, setModalVisible] = useState(false);
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
@@ -22,6 +27,10 @@ const RegisterChildScreen = ({ navigation }) => {
             ),
         })
     }, [navigation]);
+
+    const addNewStudent = (studentData) => {
+        dispatch(addStudent(studentData));
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.safeAreaContainer}>
@@ -30,7 +39,10 @@ const RegisterChildScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.registeredStudentContainer}>
                     <View style={styles.listContainer}>
-                        <Text style={{ textAlign: 'center' }}>You haven't added any students yet, you can do so in the top right hand corner</Text>
+                        {students.length == 0 ?
+                            <Text style={{ textAlign: 'center' }}>You haven't added any students yet, you can do so in the top right hand corner</Text> :
+                            <Text>Gonna add students here</Text>
+                        }
                     </View>
                 </View>
                 <View style={styles.actionContainer}>

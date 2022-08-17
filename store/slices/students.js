@@ -12,5 +12,5 @@ const registeredStudents = createSlice({
     }
 })
 
-export const addStudents = registeredStudents.actions.addStudent;
+export const addStudent = registeredStudents.actions.addStudent;
 export default registeredStudents.reducer;
