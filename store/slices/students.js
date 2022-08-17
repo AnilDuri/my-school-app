@@ -8,10 +8,13 @@ const registeredStudents = createSlice({
     reducers: {
         addStudent: (state, action) => {
             state.students.push(action.payload);
-            console.log(state.students);
         },
+        removeStudent: (state, action) => {
+            state.students.splice(action.payload, 1);
+        }
     }
 })
 
 export const addStudent = registeredStudents.actions.addStudent;
+export const removeStudent = registeredStudents.actions.removeStudent;
 export default registeredStudents.reducer;

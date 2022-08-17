@@ -1,16 +1,19 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
+import { useDispatch } from 'react-redux';
+
+import { removeStudent } from '../store/slices/students';
 
 const StudentContainer = ({ studentData }) => {
-    console.log(studentData);
+    const dispatch = useDispatch();
     return (
         <View style={styles.studentContainer}>
             <View>
-                <Text>Student Name: <Text style={styles.boldText}>{studentData.firstName} {studentData.lastName}</Text></Text>
-                <Text>Year Group: <Text style={styles.boldText}>{studentData.yearGroup}</Text></Text>
+                <Text>Student Name: <Text style={styles.boldText}>{studentData.item.firstName} {studentData.item.lastName}</Text></Text>
+                <Text>Year Group: <Text style={styles.boldText}>{studentData.item.yearGroup}</Text></Text>
             </View>
             <View>
-                <Button title='X'></Button>
+                <Button onPress={() => dispatch(removeStudent(studentData.index))} title='X'></Button>
             </View>
         </View>
     )
@@ -26,7 +29,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgrey',
         alignSelf: 'stretch',
         borderRadius: 20,
-        padding: 16
+        padding: 16,
+        marginBottom: 10
     },
     boldText: {
         fontWeight: 'bold'

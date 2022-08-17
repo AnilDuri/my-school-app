@@ -31,6 +31,9 @@ const RegisterChildScreen = ({ navigation }) => {
 
     const addNewStudent = () => {
         dispatch(addStudent({ firstName, lastName, yearGroup }));
+        setFirstName('');
+        setLastName('');
+        setYearGroup('');
         setModalVisible(!modalVisible)
     }
     return (
@@ -48,7 +51,7 @@ const RegisterChildScreen = ({ navigation }) => {
                                 data={students}
                                 keyExtractor={(item, index) => index}
                                 renderItem={(itemData) => {
-                                    return (<StudentContainer studentData={itemData.item} />)
+                                    return (<StudentContainer studentData={itemData} />)
                                 }}
                             />
                         }
