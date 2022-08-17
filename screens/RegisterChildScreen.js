@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { Modal, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, Modal, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 
+import StudentContainer from '../components/StudentContainer';
 import { addStudent } from '../store/slices/students';
 
 const RegisterChildScreen = ({ navigation }) => {
@@ -28,8 +29,9 @@ const RegisterChildScreen = ({ navigation }) => {
         })
     }, [navigation]);
 
-    const addNewStudent = (studentData) => {
-        dispatch(addStudent(studentData));
+    const addNewStudent = () => {
+        dispatch(addStudent({ firstName, lastName, yearGroup }));
+        setModalVisible(!modalVisible)
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -41,7 +43,14 @@ const RegisterChildScreen = ({ navigation }) => {
                     <View style={styles.listContainer}>
                         {students.length == 0 ?
                             <Text style={{ textAlign: 'center' }}>You haven't added any students yet, you can do so in the top right hand corner</Text> :
-                            <Text>Gonna add students here</Text>
+                            <FlatList
+                                style={styles.list}
+                                data={students}
+                                keyExtractor={(item, index) => index}
+                                renderItem={(itemData) => {
+                                    return (<StudentContainer studentData={itemData.item} />)
+                                }}
+                            />
                         }
                     </View>
                 </View>
@@ -87,7 +96,7 @@ const RegisterChildScreen = ({ navigation }) => {
                         </View>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
+                            onPress={() => addNewStudent()}
                         >
                             <Text style={styles.textStyle}>Add Student</Text>
                         </Pressable>
@@ -215,4 +224,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
+    list: {
+        alignSelf: 'stretch',
+    }
 })

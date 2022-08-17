@@ -8,6 +8,7 @@ const registeredStudents = createSlice({
     reducers: {
         addStudent: (state, action) => {
             state.students.push(action.payload);
+            console.log(state.students);
         },
     }
 })
