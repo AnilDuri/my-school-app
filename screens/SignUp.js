@@ -27,7 +27,7 @@ const SignUpScreen = ({ navigation }) => {
         backgroundColor: '#b4e369'
       }
     })
-  }, [navigation])
+  }, [navigation]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.safeAreaContainer}>
@@ -70,12 +70,11 @@ const SignUpScreen = ({ navigation }) => {
             disableBorderRadius={true}
             listMode="SCROLLVIEW"
             style={styles.picker}
-            containerStyle={{ borderWidth: 'red' }}
             placeholderStyle={styles.pickerPlaceholder}
           />
         </View>
         <View style={styles.actionContainer}>
-          <Pressable style={styles.button}>
+          <Pressable onPress={() => navigation.navigate('registerChild')} style={styles.button}>
             <Text style={styles.buttonText}>
               Next
             </Text>
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 16,
     borderWidth: 0,
-    marginTop: 5
+    marginTop: 6
   },
   pickerPlaceholder: {
     fontSize: 16,
