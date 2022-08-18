@@ -1,27 +1,25 @@
 import React from 'react'
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
 
-const RegistrationConfirmationModal = ({ modalVisible, setModalVisible }) => {
+const RegistrationConfirmationModal = ({ modalVisible, navigateLogin }) => {
     return (
         <Modal
             animationType="slide"
             presentationStyle='overFullScreen'
             transparent={true}
             visible={modalVisible}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-            }}
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <View style={styles.registerContainer}>
+                        <Text style={styles.successTitle}>Congratulations! Your request has successfully been sent to *School Name* </Text>
+                        <Text style={styles.successSubtitle}>Once accepted you’ll be notified by email and can login to view your school portal.</Text>
                     </View>
                     <View style={styles.actionContainer}>
                         <View style={styles.buttonContainer}>
                             <Pressable
                                 style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-                                onPress={() => setModalVisible(false)}
+                                onPress={() => navigateLogin()}
                             >
                                 <Text style={styles.textStyle}>Return to Login</Text>
                             </Pressable>
@@ -68,6 +66,7 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch'
     },
     textStyle: {
+        fontSize: 16,
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
@@ -92,5 +91,15 @@ const styles = StyleSheet.create({
     },
     pressed: {
         backgroundColor: '#a1a1a1'
+    },
+    successTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 10
+    },
+    successSubtitle: {
+        fontSize: 14,
+        textAlign: 'center'
     }
 })

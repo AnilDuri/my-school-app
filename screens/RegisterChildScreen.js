@@ -27,6 +27,10 @@ const RegisterChildScreen = ({ navigation }) => {
         })
     }, [navigation]);
 
+    const navigateLogin = () => {
+        navigation.navigate('login');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.safeAreaContainer}>
@@ -57,7 +61,7 @@ const RegisterChildScreen = ({ navigation }) => {
                 </View>
             </View>
             <AddStudentModal setModalVisible={setModalVisible} modalVisible={modalVisible} />
-            <RegistrationConfirmationModal setModalVisible={setRegistrationModalVisible} modalVisible={registrationModalVisible} />
+            <RegistrationConfirmationModal navigateLogin={navigateLogin} modalVisible={registrationModalVisible} />
         </SafeAreaView>
     )
 }
