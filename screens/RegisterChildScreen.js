@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         flex: 3,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        marginHorizontal: 16
+        marginHorizontal: 20
     },
     actionContainer: {
         flex: 1,
