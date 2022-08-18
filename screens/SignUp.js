@@ -41,7 +41,6 @@ const SignUpScreen = ({ navigation }) => {
             onChangeText={setEmail}
             value={email}
             autoCapitalize="none"
-
           />
           <TextInput
             style={styles.input}
