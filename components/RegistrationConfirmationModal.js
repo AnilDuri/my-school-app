@@ -1,22 +1,7 @@
-import React, { useState } from 'react'
-import { Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import { useDispatch } from 'react-redux';
+import React from 'react'
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
 
-import { addStudent } from '../store/slices/students';
-
-const AddStudentModal = ({ modalVisible, setModalVisible }) => {
-    const dispatch = useDispatch();
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [yearGroup, setYearGroup] = useState('');
-
-    const addNewStudent = () => {
-        dispatch(addStudent({ firstName, lastName, yearGroup }));
-        setFirstName('');
-        setLastName('');
-        setYearGroup('');
-        setModalVisible(!modalVisible);
-    }
+const RegistrationConfirmationModal = ({ modalVisible, setModalVisible }) => {
     return (
         <Modal
             animationType="slide"
@@ -31,24 +16,6 @@ const AddStudentModal = ({ modalVisible, setModalVisible }) => {
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <View style={styles.registerContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="First Name"
-                            onChangeText={setFirstName}
-                            value={firstName}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Last Name"
-                            onChangeText={setLastName}
-                            value={lastName}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Year Group"
-                            onChangeText={setYearGroup}
-                            value={yearGroup}
-                        />
                     </View>
                     <View style={styles.actionContainer}>
                         <View style={styles.buttonContainer}>
@@ -56,15 +23,7 @@ const AddStudentModal = ({ modalVisible, setModalVisible }) => {
                                 style={({ pressed }) => [styles.button, pressed && styles.pressed]}
                                 onPress={() => setModalVisible(false)}
                             >
-                                <Text style={styles.textStyle}>Close</Text>
-                            </Pressable>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <Pressable
-                                style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-                                onPress={() => addNewStudent()}
-                            >
-                                <Text style={styles.textStyle}>Add Student</Text>
+                                <Text style={styles.textStyle}>Return to Login</Text>
                             </Pressable>
                         </View>
                     </View>
@@ -74,7 +33,7 @@ const AddStudentModal = ({ modalVisible, setModalVisible }) => {
     )
 }
 
-export default AddStudentModal
+export default RegistrationConfirmationModal
 
 const styles = StyleSheet.create({
     centeredView: {

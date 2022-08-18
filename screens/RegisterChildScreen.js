@@ -3,11 +3,13 @@ import { FlatList, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react
 import { useSelector } from 'react-redux';
 
 import AddStudentModal from '../components/AddStudentModal';
+import RegistrationConfirmationModal from '../components/RegistrationConfirmationModal';
 import StudentContainer from '../components/StudentContainer';
 
 const RegisterChildScreen = ({ navigation }) => {
     const students = useSelector((state) => state.students.students);
     const [modalVisible, setModalVisible] = useState(false);
+    const [registrationModalVisible, setRegistrationModalVisible] = useState(false);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -47,14 +49,15 @@ const RegisterChildScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.actionContainer}>
-                    <Pressable onPress={() => navigation.navigate('registerChild')} style={styles.button}>
+                    <Pressable onPress={() => setRegistrationModalVisible(true)} style={styles.button}>
                         <Text style={styles.buttonText}>
                             Submit
                         </Text>
                     </Pressable>
                 </View>
             </View>
-            <AddStudentModal setModalVisible={setModalVisible} modalVisible={modalVisible}></AddStudentModal>
+            <AddStudentModal setModalVisible={setModalVisible} modalVisible={modalVisible} />
+            <RegistrationConfirmationModal setModalVisible={setRegistrationModalVisible} modalVisible={registrationModalVisible} />
         </SafeAreaView>
     )
 }
