@@ -27,9 +27,9 @@ const LoginScreen = ({ navigation }) => {
                             keyboardType="password"
                         />
                         <View style={styles.forgotPasswordContainer}>
-                            <Text style={styles.forgotPassword}>
-                                Forgot Password?
-                            </Text>
+                            <Pressable onPress={() => navigation.navigate('forgotPassword')} style={({ pressed }) => [styles.forgotPassword, pressed && styles.pressed]}>
+                                <Text>Forgot Password?</Text>
+                            </Pressable>
                         </View>
                     </View>
                     <View style={styles.contentSection}>
@@ -38,7 +38,7 @@ const LoginScreen = ({ navigation }) => {
                                 Login
                             </Text>
                         </Pressable>
-                        <Pressable onPress={() => navigation.navigate('signUp')} >
+                        <Pressable onPress={() => navigation.navigate('signUp')} style={({ pressed }) => [pressed && styles.pressed]}>
                             <Text>Sign Up</Text>
                         </Pressable>
                     </View>
@@ -109,4 +109,7 @@ const styles = StyleSheet.create({
     forgotPasswordContainer: {
         alignSelf: 'stretch',
     },
+    pressed: {
+        opacity: 0.7
+    }
 })
