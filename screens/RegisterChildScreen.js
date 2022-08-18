@@ -1,12 +1,14 @@
 import React, { useLayoutEffect, useState } from 'react'
 import { FlatList, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AddStudentModal from '../components/AddStudentModal';
 import RegistrationConfirmationModal from '../components/RegistrationConfirmationModal';
 import StudentContainer from '../components/StudentContainer';
+import { clearStudents } from '../store/slices/students';
 
 const RegisterChildScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
     const students = useSelector((state) => state.students.students);
     const [modalVisible, setModalVisible] = useState(false);
     const [registrationModalVisible, setRegistrationModalVisible] = useState(false);
@@ -28,6 +30,7 @@ const RegisterChildScreen = ({ navigation }) => {
     }, [navigation]);
 
     const navigateLogin = () => {
+        dispatch(clearStudents());
         navigation.navigate('login');
     }
 
