@@ -7,6 +7,7 @@ import ForgotPassword from './screens/ForgotPassword';
 import LoginScreen from './screens/Login';
 import RegisterChildScreen from './screens/RegisterChildScreen';
 import SignUpScreen from './screens/SignUp';
+import TabScreen from './screens/TabScreen';
 import { store } from './store/store'
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
           <Stack.Screen name='signUp' component={SignUpScreen} />
           <Stack.Screen name='registerChild' component={RegisterChildScreen} />
           <Stack.Screen name='forgotPassword' component={ForgotPassword} />
+          <Stack.Screen name='tab' component={TabScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

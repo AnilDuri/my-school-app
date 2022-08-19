@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={styles.contentSection}>
-                        <Pressable style={styles.button}>
+                        <Pressable onPress={() => navigation.navigate('tab')} style={({ pressed }) => [styles.button, pressed && styles.pressed]}>
                             <Text style={styles.buttonText}>
                                 Login
                             </Text>
