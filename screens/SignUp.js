@@ -1,9 +1,12 @@
 import React, { useLayoutEffect, useState } from 'react'
-import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Alert, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
+
+import { supabase } from '../supabase/supabase'
 
 const SignUpScreen = ({ navigation }) => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: 'Sandford School', value: 'sandford_school' },
@@ -14,8 +17,8 @@ const SignUpScreen = ({ navigation }) => {
     { label: 'Italian School', value: 'italian_school' },
     { label: 'German School', value: 'german_school' },
   ]);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState(null);
 
   useLayoutEffect(() => {
@@ -28,60 +31,73 @@ const SignUpScreen = ({ navigation }) => {
       }
     })
   }, [navigation]);
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.safeAreaContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Please fill out your details!</Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            onChangeText={setEmail}
-            value={email}
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={setPassword}
-            value={password}
-            placeholder="Password"
-            keyboardType="password"
-            secureTextEntry={true}
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={setConfirmPassword}
-            value={confirmPassword}
-            placeholder="Confirm Password"
-            keyboardType="password"
-            secureTextEntry={true}
-          />
-          <DropDownPicker
-            placeholder="Select a School"
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            disableBorderRadius={true}
-            listMode="SCROLLVIEW"
-            style={styles.picker}
-            placeholderStyle={styles.pickerPlaceholder}
-          />
-        </View>
-        <View style={styles.actionContainer}>
-          <Pressable onPress={() => navigation.navigate('registerChild')} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Next
-            </Text>
-          </Pressable>
-        </View>
+
+  async function signUpWithEmail() {
+    setLoading(true)
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
+
+    if (error) {
+      console.log(error);
+    }
+  setLoading(false)
+}
+return (
+  <SafeAreaView style={styles.container}>
+    <View style={styles.safeAreaContainer}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Please fill out your details!</Text>
       </View>
-    </SafeAreaView>
-  )
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          onChangeText={setEmail}
+          value={email}
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          placeholder="Password"
+          keyboardType="password"
+          secureTextEntry={true}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={setConfirmPassword}
+          value={confirmPassword}
+          placeholder="Confirm Password"
+          keyboardType="password"
+          secureTextEntry={true}
+        />
+        <DropDownPicker
+          placeholder="Select a School"
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          disableBorderRadius={true}
+          listMode="SCROLLVIEW"
+          style={styles.picker}
+          placeholderStyle={styles.pickerPlaceholder}
+        />
+      </View>
+      <View style={styles.actionContainer}>
+        <Pressable onPress={signUpWithEmail} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Sign Up
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  </SafeAreaView>
+)
 }
 
 export default SignUpScreen
