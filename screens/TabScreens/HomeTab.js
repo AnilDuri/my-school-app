@@ -1,4 +1,5 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Feather } from '@expo/vector-icons';
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 const HomeTab = () => {
 
@@ -7,7 +8,9 @@ const HomeTab = () => {
       <View style={styles.pageContainer}>
         <View style={styles.schoolContainer}>
           <Text style={styles.SchoolTitle}>Sandford International School</Text>
-          <View style={styles.iconContainer}></View>
+          <View style={styles.iconContainer}>
+          <Feather name="user" size={25} color="white" />
+          </View>
         </View>
         <View style={styles.holidayContainer}>
           <Text style={styles.headingText}>Coming Up</Text>
@@ -82,7 +85,9 @@ const styles = StyleSheet.create({
   iconContainer: {
     height: 40,
     width: 40,
-    backgroundColor: 'red',
+    backgroundColor: 'blue',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 40,
     marginHorizontal: 5
   },
