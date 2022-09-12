@@ -1,26 +1,32 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
 const HomeTab = () => {
 
   return (
-    <View style={styles.pageContainer}>
-      <View style={styles.holidayContainer}>
-        <Text style={styles.headingText}>Coming Up</Text>
-        <FlatList
-          data={[1, 2, 3, 4, 5]}
-          renderItem={holidayView}
-          keyExtractor={(item, index) => index}
-        />
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <View style={styles.pageContainer}>
+        <View style={styles.schoolContainer}>
+          <Text style={styles.SchoolTitle}>Sandford International School</Text>
+          <View style={styles.iconContainer}></View>
+        </View>
+        <View style={styles.holidayContainer}>
+          <Text style={styles.headingText}>Coming Up</Text>
+          <FlatList
+            data={[1, 2, 3, 4, 5]}
+            renderItem={holidayView}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
+        <View style={styles.newsContainer}>
+          <Text style={styles.headingText}>Latest News</Text>
+          <FlatList
+            data={[1, 2, 3, 4, 5]}
+            renderItem={newsView}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
       </View>
-      <View style={styles.newsContainer}>
-        <Text style={styles.headingText}>Latest News</Text>
-        <FlatList
-          data={[1, 2, 3, 4, 5]}
-          renderItem={newsView}
-          keyExtractor={(item, index) => index}
-        />
-      </View>
-    </View>
+    </SafeAreaView>
   )
 }
 export default HomeTab
@@ -53,9 +59,18 @@ const newsView = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1
+  },
   pageContainer: {
     flex: 1,
     padding: 20,
+  },
+  schoolContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20
   },
   holidayContainer: {
     flex: 1,
@@ -63,6 +78,17 @@ const styles = StyleSheet.create({
   },
   newsContainer: {
     flex: 1,
+  },
+  iconContainer: {
+    height: 40,
+    width: 40,
+    backgroundColor: 'red',
+    borderRadius: 40,
+    marginHorizontal: 5
+  },
+  SchoolTitle: {
+    fontSize: 20,
+    fontWeight: 'bold'
   },
   headingText: {
     fontSize: 26,
