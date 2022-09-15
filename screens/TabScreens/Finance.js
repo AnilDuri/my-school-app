@@ -1,20 +1,31 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text } from 'react-native'
+
+import FinanceComponent from '../../components/FinanceComponent'
+import PageContainer from '../../components/PageContainer'
+import SafeAreaViewContainer from '../../components/SafeAreaViewContainer'
 
 const Finance = () => {
   return (
-    <View style={styles.container}>
-      <Text>Finance</Text>
-    </View>
+    <SafeAreaViewContainer>
+      <PageContainer>
+        <Text style={styles.title}>Finances</Text>
+        <FlatList
+          data={[1, 2, 3, 4, 5]}
+          renderItem={FinanceComponent}
+          keyExtractor={(item, index) => index}
+        />
+      </PageContainer>
+    </SafeAreaViewContainer>
   )
 }
 
 export default Finance
 
 const styles = StyleSheet.create({
-    container: {
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  })
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+})

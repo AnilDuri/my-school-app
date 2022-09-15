@@ -26,7 +26,7 @@ export default function App() {
         <Tab.Screen name="Notices" component={Notices} options={{ headerShown: false, tabBarIconStyle: { display: 'none' } }} />
         <Tab.Screen name="Calendar" component={Calendar} options={{ tabBarIconStyle: { display: 'none' } }} />
         <Tab.Screen name="Messages" component={Messages} options={{ tabBarIconStyle: { display: 'none' } }} />
-        <Tab.Screen name="Finance" component={Finance} options={{ tabBarIconStyle: { display: 'none' } }} />
+        <Tab.Screen name="Finance" component={Finance} options={{ headerShown: false, tabBarIconStyle: { display: 'none' } }} />
       </Tab.Navigator>
     );
   }
