@@ -23,7 +23,7 @@ export default function App() {
     return (
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeTab} options={{ headerShown: false, tabBarIconStyle: { display: 'none' } }} />
-        <Tab.Screen name="Notices" component={Notices} options={{ tabBarIconStyle: { display: 'none' } }} />
+        <Tab.Screen name="Notices" component={Notices} options={{ headerShown: false, tabBarIconStyle: { display: 'none' } }} />
         <Tab.Screen name="Calendar" component={Calendar} options={{ tabBarIconStyle: { display: 'none' } }} />
         <Tab.Screen name="Messages" component={Messages} options={{ tabBarIconStyle: { display: 'none' } }} />
         <Tab.Screen name="Finance" component={Finance} options={{ tabBarIconStyle: { display: 'none' } }} />

@@ -118,6 +118,9 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 20,
   },
+  itemSubtitle: {
+    fontWeight:'200'
+  },
   dateText: {
     fontSize: 20,
     color: 'white'
