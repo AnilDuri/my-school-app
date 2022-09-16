@@ -41,8 +41,10 @@ const SignUpScreen = ({ navigation }) => {
 
     if (error) {
       console.log(error);
+      return;
     }
   setLoading(false)
+  navigation.navigate('registerChild');
 }
 return (
   <SafeAreaView style={styles.container}>
