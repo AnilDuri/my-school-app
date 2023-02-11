@@ -1,22 +1,14 @@
 import React, { useLayoutEffect, useState } from 'react'
+import { useEffect } from 'react';
 import { Alert, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
+import { SelectList } from 'react-native-dropdown-select-list'
 
 import { supabase } from '../supabase/supabase'
 
 const SignUpScreen = ({ navigation }) => {
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: 'Sandford School', value: 'sandford_school' },
-    { label: 'Lycee', value: 'lycee' },
-    { label: 'Greek School', value: 'greek_school' },
-    { label: 'ICS', value: 'ics' },
-    { label: 'Bingham Academy', value: 'bingham_academy' },
-    { label: 'Italian School', value: 'italian_school' },
-    { label: 'German School', value: 'german_school' },
-  ]);
+  const [schools, setSchools] = useState([]);
+  const [selectedSchool, setSelectedSchool] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState(null);
@@ -43,63 +35,77 @@ const SignUpScreen = ({ navigation }) => {
       console.log(error);
       return;
     }
-  setLoading(false)
-  navigation.navigate('registerChild');
-}
-return (
-  <SafeAreaView style={styles.container}>
-    <View style={styles.safeAreaContainer}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Please fill out your details!</Text>
+    setLoading(false)
+    navigation.navigate('registerChild');
+  }
+
+  useEffect(() => {
+    const fetchSchools = async () => {
+      const { data, errors } = await supabase.from('schools').select('name, id');
+      if (errors) return;
+      const formattedData = data.map((s, i) => ({ key: i, value: s.name, id: s.id }))
+      setSchools(formattedData);
+    }
+    fetchSchools();
+  }, [])
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.safeAreaContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Please fill out your details!</Text>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            onChangeText={setEmail}
+            value={email}
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Password"
+            keyboardType="password"
+            secureTextEntry={true}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
+            placeholder="Confirm Password"
+            keyboardType="password"
+            secureTextEntry={true}
+          />
+          <SelectList
+            setSelected={(val) => setSelectedSchool(val)}
+            data={schools}
+            save="name" />
+          {/* <DropDownPicker
+            placeholder="Select a School"
+            open={open}
+            value={value}
+            items={schools}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            disableBorderRadius={true}
+            listMode="SCROLLVIEW"
+            style={styles.picker}
+            placeholderStyle={styles.pickerPlaceholder}
+          /> */}
+        </View>
+        <View style={styles.actionContainer}>
+          <Pressable onPress={signUpWithEmail} style={styles.button}>
+            <Text style={styles.buttonText}>
+              Sign Up
+            </Text>
+          </Pressable>
+        </View>
       </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          onChangeText={setEmail}
-          value={email}
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Password"
-          keyboardType="password"
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={setConfirmPassword}
-          value={confirmPassword}
-          placeholder="Confirm Password"
-          keyboardType="password"
-          secureTextEntry={true}
-        />
-        <DropDownPicker
-          placeholder="Select a School"
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          disableBorderRadius={true}
-          listMode="SCROLLVIEW"
-          style={styles.picker}
-          placeholderStyle={styles.pickerPlaceholder}
-        />
-      </View>
-      <View style={styles.actionContainer}>
-        <Pressable onPress={signUpWithEmail} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Sign Up
-          </Text>
-        </Pressable>
-      </View>
-    </View>
-  </SafeAreaView>
-)
+    </SafeAreaView>
+  )
 }
 
 export default SignUpScreen
