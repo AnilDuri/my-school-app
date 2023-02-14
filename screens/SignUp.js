@@ -25,7 +25,6 @@ const SignUpScreen = ({ navigation }) => {
   }, [navigation]);
 
   async function signUpWithEmail() {
-    setLoading(true)
     const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -35,7 +34,6 @@ const SignUpScreen = ({ navigation }) => {
       console.log(error);
       return;
     }
-    setLoading(false)
     navigation.navigate('registerChild');
   }
 
@@ -97,7 +95,7 @@ const SignUpScreen = ({ navigation }) => {
           /> */}
         </View>
         <View style={styles.actionContainer}>
-          <Pressable onPress={signUpWithEmail} style={styles.button}>
+          <Pressable onPress={() => navigation.navigate('registerChild')} style={styles.button}>
             <Text style={styles.buttonText}>
               Sign Up
             </Text>

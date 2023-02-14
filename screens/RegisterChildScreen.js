@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { FlatList, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,6 +6,7 @@ import AddStudentModal from '../components/AddStudentModal';
 import RegistrationConfirmationModal from '../components/RegistrationConfirmationModal';
 import StudentContainer from '../components/StudentContainer';
 import { clearStudents } from '../store/slices/students';
+import { supabase } from '../supabase/supabase'
 
 const RegisterChildScreen = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -33,6 +34,27 @@ const RegisterChildScreen = ({ navigation }) => {
         dispatch(clearStudents());
         navigation.navigate('login');
     }
+
+    useEffect(() => {
+        const fetchStudents = async () => {
+            const { data, errors } = await supabase.from('schools').select(`
+              name,
+              students (
+                first_name,
+                last_name,
+                key_stage,
+                year_group,
+                picture_url
+              )
+            `).eq('name', 'Sandford International School')
+            if (errors) {
+                console.log('ERRORS: ', errors);
+                return;
+            }
+            console.log('Students: ', data[0]);
+        }
+        fetchStudents();
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
