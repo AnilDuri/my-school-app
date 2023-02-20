@@ -28,6 +28,11 @@ const SignUpScreen = ({ navigation }) => {
     const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
+      options: {
+        data: {
+          email
+        }
+      }
     })
 
     if (error) {
@@ -95,7 +100,7 @@ const SignUpScreen = ({ navigation }) => {
           /> */}
         </View>
         <View style={styles.actionContainer}>
-          <Pressable onPress={() => navigation.navigate('registerChild')} style={styles.button}>
+          <Pressable onPress={signUpWithEmail} style={styles.button}>
             <Text style={styles.buttonText}>
               Sign Up
             </Text>
